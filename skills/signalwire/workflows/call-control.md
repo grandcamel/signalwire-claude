@@ -433,7 +433,7 @@ call.on('ended', (call) => {
 
 ### Listing Active Calls (REST)
 
-To enumerate live calls — for example, a cleanup job that ends stale calls — use the **Voice Logs API**. The Compatibility API's `GET /Calls` does NOT return SWML/AI call data (confirmed by SignalWire support, Aug 2026).
+To enumerate live calls — for example, a cleanup job that ends stale calls — use the **Voice Logs API**. The Compatibility API's `GET /Calls` does NOT return SWML/AI call data.
 
 ```
 GET https://{space}.signalwire.com/api/voice/logs
@@ -441,7 +441,7 @@ GET https://{space}.signalwire.com/api/voice/logs
 
 Each log entry includes the call's `status` (e.g. `in-progress`, `completed`) and an `id` — that `id` is the call ID accepted by the Send Call Commands API (`POST /api/calling/calls`), including `calling.end`.
 
-As of Aug 2026 the endpoint supports only date filters, pagination, and an `include_deleted` flag — no server-side status filter — so filter on `status` client-side. SignalWire was adding Compatibility-style query parameters; check current docs before assuming a filter is missing.
+The endpoint supports only date filters, pagination, and an `include_deleted` flag — no server-side status filter — so filter on `status` client-side.
 
 ```python
 import requests
