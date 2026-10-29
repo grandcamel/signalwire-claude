@@ -154,7 +154,7 @@ The emitted action carries the document under `SWML` with `transfer` as a **sibl
 {"SWML": { ...document... }, "transfer": "true"}
 ```
 
-`transfer` is not a SWML key, so it must sit beside the document, not inside it. If `transfer` ends up inside the document, the platform ignores it and the call never leaves the agent.
+`transfer` is not a SWML key, so it must sit beside the document, not inside it.
 
 ### tap()
 
