@@ -339,6 +339,8 @@ if __name__ == "__main__":
 
 ## AI Billing & Metering
 
+Rates change, so don't quote prices from memory. Get current AI agent pricing from https://signalwire.com/pricing#ai-agents when a cost estimate is needed.
+
 How AI runtime is metered:
 
 - **AI runtime bills the entire time the AI is active on the call** — including while on `ai_hold`. Pausing speech processing does NOT pause the meter.
@@ -346,7 +348,7 @@ How AI runtime is metered:
 - **Post-prompt processing is never billed as AI runtime** — it always runs after the AI call ends and never extends AI billing.
 - **Each AI leg is metered independently** — two simultaneous AI legs run two meters.
 - **Usage rounds UP to the nearest minute** — a 2m20s AI session bills as 3 minutes. Voice legs (inbound and outbound) are billed individually the same way.
-- **An unset `languages` defaults to a premium voice and bills TTS separately** — with no `ai.languages` configured, the platform currently defaults to an ElevenLabs voice, adding a per-usage Text to Speech line on top of AI runtime. Voices from the standard providers — OpenAI, Deepgram, Amazon Polly, Google Cloud, Azure — carry no separate TTS charge. Always set an engine-prefixed voice explicitly (e.g. `voice: polly.Matthew`, `voice: gcloud.en-US-Neural2-F`); an unprefixed voice ID can fail to resolve and fall back to the premium default.
+- **The TTS voice affects cost** — different TTS voices can carry different charges, and some bill a separate Text to Speech line on top of AI runtime. Set the voice explicitly in `ai.languages` instead of relying on the platform default, which can change. Use the engine-prefixed form `voice: <engine>.<voice>` (optionally `<engine>.<voice>:<model>`). If the voice can't be resolved — a missing engine prefix or a mistyped name — the platform falls back to the default voice and the call continues, so a bad voice ID silently changes both the sound and the cost.
 
 ### Cost Guardrails
 
