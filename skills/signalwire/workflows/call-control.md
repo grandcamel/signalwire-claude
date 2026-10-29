@@ -78,7 +78,7 @@ return FunctionResult(
 ).connect("tel:+15551234567", final=True)
 ```
 
-An injected document containing `connect` only succeeds when the action carries the `transfer` flag **beside** the SWML document — the shape `connect()` emits, and, on current SDKs (fixed August 2026), `execute_swml(doc, transfer=True)` as well. Older SDKs wrote the flag *inside* the document, where the platform ignores it, so the nested `connect` fast-fails — `connect_result=failed` within seconds, no B-leg dialed — while the identical document works at the top level of a call.
+An injected document containing `connect` only succeeds when the action carries the `transfer` flag **beside** the SWML document — the shape both `connect()` and `execute_swml(doc, transfer=True)` emit. If the flag ends up *inside* the document (for example, in hand-built action JSON), the platform ignores it, so the nested `connect` fast-fails — `connect_result=failed` within seconds, no B-leg dialed — while the identical document works at the top level of a call.
 
 ## Recording
 
