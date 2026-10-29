@@ -355,7 +355,7 @@ How AI runtime is metered:
 There are **no Space-level spend or duration alerts or caps** — set your own limits on every AI call:
 
 - **answer.max_duration**: Hard ceiling on the call (default 14400 seconds = 4 hours, which is also the **platform maximum** — 14400 is the largest accepted value); disconnects instantly when reached
-- **hard_stop_time**: Caps the AI session (accepts `30s`, `2m`, `1h45m` formats); the AI finishes speaking and processes `hard_stop_prompt` before hanging up, so it is not an instant cutoff. Values beyond 4 hours are inert — the platform maximum ends the call first.
+- **params.hard_stop_time**: Caps the AI session. Use `HH:MM:SS`, `MM:SS`, or a whole number of seconds (`"30:00"` and `"1800"` are both 30 minutes). Unit suffixes are not parsed: `30m` is read as 30 seconds. When the time passes, the AI gives one last reply using `hard_stop_prompt`, then the AI ends and the next SWML instruction runs, so it is not an instant cutoff and does not hang up by itself. Values beyond 4 hours are inert — the platform maximum ends the call first.
 
 Without these, a stuck AI call meters until the 4-hour platform limit ends it.
 
